@@ -13,10 +13,15 @@
   <ul class="navbar" id="navbar">
     <li><span><a href="#Home">Home</a></span></li>
     <li><span><a href="#About">About</a></span></li>
+    <li class="center-content">
+      <span>
+        <span onclick="showSortDropdown()" id="sort-selector" class="search-selector">Id<i></i></span>
+        <i onclick="sort()" class="sort-icon"></i>
+      </span>
+    </li>
     <li>
       <span>
-        <span onclick="showDropdown()" id="search-selector" class="search-selector">Id<i></i></span>
-        <i onclick="sort()" class="sort-icon"></i>
+        <span onclick="showSearchDropdown()" id="filter-selector" class="search-selector">Id<i></i></span>
         <input id="filter-string" class="search" type="text" onkeyup="updateFilterString()" placeholder="Filter products...">
       </span>
     </li>
@@ -27,7 +32,7 @@
 </header>
 
 <div class="Grid" id="catalogue" v-cloak>
-  <div class="Grid-cell" v-for="product in products | orderBy modifier order | filterBy filter_data in modifier">
+  <div class="Grid-cell" v-for="(index,product) in products | orderBy sortModifier order | filterBy filter_data in searchModifier" v-if="index < total_count">
     <a class="product-link" v-bind:href="product.url">
       <figure class="figure">
         <span class="loader"></span>
@@ -47,26 +52,49 @@
   callAjax("https://test-prod-api.herokuapp.com/products",updateSampleData);
 </script>
 
-<div id="search-dropdown" onmouseover="showDropdown()" onMouseOut="hideDropdown()" class="search-dropdown">
+<div id="search-dropdown" onmouseover="showSearchDropdown()" onMouseOut="hideSearchDropdown()" class="search-filter dropdown">
   <div>
-    <input type="radio" id="search-Id" onclick="updateFilter(this.id)" name="search-select">
+    <input type="radio" id="search-Id" onclick="updateFilterSelector(this.id)" name="search-select">
     <label for="search-id">Id</label>
   </div>
   <div>
-    <input type="radio" id="search-Name" onclick="updateFilter(this.id)" name="search-select">
+    <input type="radio" id="search-Name" onclick="updateFilterSelector(this.id)" name="search-select">
     <label for="search-name">Name</label>
   </div>
   <div>
-    <input type="radio" id="search-Catagory" onclick="updateFilter(this.id)" name="search-select">
+    <input type="radio" id="search-Catagory" onclick="updateFilterSelector(this.id)" name="search-select">
     <label for="search-catagory">Catagory</label>
   </div>
   <div>
-    <input type="radio" id="search-Price" onclick="updateFilter(this.id)" name="search-select">
+    <input type="radio" id="search-Price" onclick="updateFilterSelector(this.id)" name="search-select">
     <label for="search-price">Price</label>
   </div>
   <div>
-    <input type="radio" id="search-Score" onclick="updateFilter(this.id)" name="search-select">
+    <input type="radio" id="search-Score" onclick="updateFilterSelector(this.id)" name="search-select">
     <label for="search-score">Score</label>
+  </div>
+</div>
+
+<div id="sort-dropdown" onmouseover="showSortDropdown()" onMouseOut="hideSortDropdown()" class="sort dropdown">
+  <div>
+    <input type="radio" id="sort-Id" onclick="updateSortSelector(this.id)" name="sort-select">
+    <label for="sort-id">Id</label>
+  </div>
+  <div>
+    <input type="radio" id="sort-Name" onclick="updateSortSelector(this.id)" name="sort-select">
+    <label for="sort-name">Name</label>
+  </div>
+  <div>
+    <input type="radio" id="sort-Catagory" onclick="updateSortSelector(this.id)" name="sort-select">
+    <label for="sort-catagory">Catagory</label>
+  </div>
+  <div>
+    <input type="radio" id="sort-Price" onclick="updateSortSelector(this.id)" name="sort-select">
+    <label for="sort-price">Price</label>
+  </div>
+  <div>
+    <input type="radio" id="sort-Score" onclick="updateSortSelector(this.id)" name="sort-select">
+    <label for="sort-score">Score</label>
   </div>
 </div>
 

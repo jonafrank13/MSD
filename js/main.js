@@ -1,7 +1,6 @@
-var catalogue_view;
 var sample;
-var perPage = 3*3;
-var pageNo  = 1;
+var catalogue_view;
+var catMap = {"Id":"id","Name":"name","Catagory":"cat","Price":"price","Score":"score"};
 
 function callAjax(url, callback){
     var xmlhttp;
@@ -18,14 +17,16 @@ function callAjax(url, callback){
 function updateSampleData(data)
 {
     sample = JSON.parse(data);
-    var renderingData = {"products":sample.products.slice(0,perPage*pageNo)};
     catalogue_view = new Vue({
       el: '#catalogue',
       data: {
-        products:renderingData.products,
+        products:sample.products,
         filter_data:"",
-        modifier:"id",
-        order:1
+        searchModifier:"id",
+        sortModifier:"id",
+        order:1,
+        perPage:3*3,
+        pageNo:1
       },
       methods:{
         loaded:function(){
@@ -34,6 +35,11 @@ function updateSampleData(data)
         missingHandler:function(){
           event.target.src = "img/notfound.png"
         }
+      },
+      computed: {
+        total_count:function(){
+            return this.perPage*this.pageNo;
+        }
       }
     });
 }
@@ -41,8 +47,7 @@ function updateSampleData(data)
 window.onscroll = function() {
     document.getElementById('to-top').style.visibility="visible";
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight-2) {
-      pageNo+=1;
-      catalogue_view.products = sample.products.slice(0,perPage*pageNo >= sample.length ? sample.length-1:perPage*pageNo);
+      catalogue_view.pageNo+=1;
     }
     if(window.scrollY == 0){
       document.getElementById('to-top').style.visibility="hidden";
@@ -58,19 +63,30 @@ function toggleMenuCollapse() {
     }
 }
 
-function showDropdown(){
+function showSearchDropdown(){
     document.getElementById('search-dropdown').style.visibility="visible";
 }
 
-function hideDropdown(){
+function hideSearchDropdown(){
     document.getElementById('search-dropdown').style.visibility="hidden";
 }
 
-function updateFilter(id){
-    document.getElementById("search-selector").innerHTML = id.replace("search-","")+"<i></i>";
-    var catMap = {"search-Id":"id","search-Name":"name","search-Catagory":"cat","search-Price":"price","search-Score":"score"};
-    catalogue_view.modifier = catMap[id];
-    catalogue_view.products = sample.products.slice(0,perPage*pageNo >= sample.length ? sample.length-1:perPage*pageNo);
+function showSortDropdown(){
+    document.getElementById('sort-dropdown').style.visibility="visible";
+}
+
+function hideSortDropdown(){
+    document.getElementById('sort-dropdown').style.visibility="hidden";
+}
+
+function updateFilterSelector(id){
+    document.getElementById("filter-selector").innerHTML = id.replace("search-","")+"<i></i>";  
+    catalogue_view.searchModifier = catMap[id.replace("search-","")];
+}
+
+function updateSortSelector(id){
+    document.getElementById("sort-selector").innerHTML = id.replace("sort-","")+"<i></i>";  
+    catalogue_view.sortModifier = catMap[id.replace("sort-","")];
 }
 
 function updateFilterString(){
