@@ -1,0 +1,249 @@
+body {
+  width: 80%;
+  margin: 30px auto;
+  font-family: sans-serif;
+}
+
+ul.navbar {
+    position: fixed;
+    width: 73.3%;
+    z-index: 5;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(7, 72, 107, 0.86);
+    top:5px;
+}
+
+ul.navbar li {float: left;}
+
+ul.navbar li span a{
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.navbar li span a:hover {background-color: black;}
+
+ul.navbar li.icon {display: none;}
+
+.Grid {
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Grid-cell {
+  flex-grow: 1;
+  width: 100%;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.product-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  width: 300px;
+  margin-right: 8px;
+  text-decoration: none;
+  color: black;
+  border : solid 2px transparent;
+}
+
+.search{
+  border: none;
+  border-radius: 0px 5px 5px 0px;
+  width: 58%;
+  height: 36px;
+  margin: 6px;
+  font-size: 1em;
+  padding: 0px;
+  margin-left: 0px;
+}
+
+.search-dropdown{
+  visibility: hidden;
+  position: fixed;
+  top: 50px;
+  left: 310px;
+  width: 160px;
+  height: auto;
+  padding: 5px;
+  background-color: #4CAF50;
+  z-index: 5;
+}
+
+.search-dropdown>div{
+  padding: 10px;
+}
+
+.search-dropdown>div:not(:last-child){
+  border-bottom: solid 1px #07486b;
+}
+
+.sort-icon{
+  background: url(../img/sort.png) no-repeat;
+    width: 20px;
+    background-size: 100%;
+    display: inline-block;
+    background-color: #03A9F4;
+    height: 36px;
+    background-position: 0px;
+    margin-right: -5px;
+    vertical-align: -13px;
+}
+
+.sort-icon:hover{
+  cursor: pointer;
+}
+
+.to-top{
+  visibility: hidden;
+  z-index: 6;
+  right: 100px;
+  bottom: 100px;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  background-image: url(../img/totop.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(150deg);
+}
+
+@media screen and (min-width: 75em) {
+  .Grid-cell {
+    width: 33%;
+  }
+}
+
+@media screen and (max-width: 75em){
+  ul.navbar li:not(:first-child) {display: none;}
+  ul.navbar li.icon {
+    float: right;
+    display: inline-block;
+  }
+  ul.navbar{
+    margin-right: 0px;
+    max-width: 302px;
+    width: 100%;
+  }
+  ul.navbar.responsive {position: relative;}
+  ul.navbar.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.navbar.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul.navbar.responsive li span a{
+    display: block;
+    text-align: left;
+  }
+  .search-dropdown{
+    top: 178px;
+    left: 66px;
+  }
+  .search{
+    height: 35px;
+    width: 55%;
+  }
+  .sort-icon{
+    height: 35px;
+  }
+  .to-top{
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
+.product-link:hover{
+  border: solid 2px #f6f6f6;
+  border-radius: 30px 30px 0px 0px;
+  box-shadow: 0 7px 17px 0 rgba(23,84,116,0.18);
+}
+
+figure {
+  margin: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+figcaption {
+  margin-top: 15px;
+}
+
+.product-image{
+  border-radius: 30px;
+  border: none;
+  display: inline-block;
+  max-width: 300px;
+  max-height: 300px;
+  background: #ccc;
+  position: relative;
+  background-position: center center;
+  background-repeat:   no-repeat;
+  background-size:     100%;
+}
+
+.loader{
+  border-radius: 30px;
+  background:url(http://loadinggif.com/images/image-selection/31.gif) no-repeat center center #fff; 
+  width:300px; 
+  height:300px; 
+  position:absolute; 
+  opacity:0.7;
+  z-index: 3;
+}
+
+.name{
+  color:#07486B;
+  font-weight: bolder;
+}
+.catagory{
+  color: grey;
+  font-weight: bold;
+}
+
+.price{
+  color: #4caf50;
+  font-weight: bolder;
+}
+
+.score{
+  color: red;
+}
+
+.search-selector{
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: -5px;
+  background-color: #f1d303;
+  border-radius: 5px 0px 0px 5px;
+  padding: 9px 9px 9px 9px;
+}
+
+.search-selector:hover{
+  cursor: pointer;
+}
+
+.search-selector>i{
+  background: url(../img/dropdown.png);
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+

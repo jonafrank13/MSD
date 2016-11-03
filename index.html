@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>MSD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28-csp/vue.min.js"></script>
+</head>
+<body>
+
+<header>
+  <ul class="navbar" id="navbar">
+    <li><span><a href="#Home">Home</a></span></li>
+    <li><span><a href="#About">About</a></span></li>
+    <li>
+      <span>
+        <span onclick="showDropdown()" id="search-selector" class="search-selector">Id<i></i></span>
+        <i onclick="sort()" class="sort-icon"></i>
+        <input id="filter-string" class="search" type="text" onkeyup="updateFilterString()" placeholder="Filter products...">
+      </span>
+    </li>
+    <li class="icon">
+      <span><a href="javascript:void(0);" onclick="toggleMenuCollapse()">&#9776;</a></span>
+    </li>
+  </ul>
+</header>
+
+<div class="Grid" id="catalogue" v-cloak>
+  <div class="Grid-cell" v-for="product in products | orderBy modifier order | filterBy filter_data in modifier">
+    <a class="product-link" v-bind:href="product.url">
+      <figure class="figure">
+        <span class="loader"></span>
+        <img class="product-image" v-bind:src="product.img" v-bind:alt="product.name" height="300" width="300" v-on:load="loaded()" v-on:error="missingHandler()">
+        <figcaption>
+          <span class="name">ID&nbsp;:&nbsp;{{product.id}}&nbsp;&#9783;&nbsp;{{product.name | uppercase}}</b></br>
+          <span class="catagory">{{ product.cat | capitalize }}</span></br>
+          <span class="price">{{product.price | currency '₹'}}</span></br>
+          <span class="score">{{product.score}}</span>
+        </figcaption>
+      </figure>
+    </a>
+  </div>
+</div>
+
+<script type="text/javascript">  
+  callAjax("https://test-prod-api.herokuapp.com/products",updateSampleData);
+</script>
+
+<div id="search-dropdown" onmouseover="showDropdown()" onMouseOut="hideDropdown()" class="search-dropdown">
+  <div>
+    <input type="radio" id="search-Id" onclick="updateFilter(this.id)" name="search-select">
+    <label for="search-id">Id</label>
+  </div>
+  <div>
+    <input type="radio" id="search-Name" onclick="updateFilter(this.id)" name="search-select">
+    <label for="search-name">Name</label>
+  </div>
+  <div>
+    <input type="radio" id="search-Catagory" onclick="updateFilter(this.id)" name="search-select">
+    <label for="search-catagory">Catagory</label>
+  </div>
+  <div>
+    <input type="radio" id="search-Price" onclick="updateFilter(this.id)" name="search-select">
+    <label for="search-price">Price</label>
+  </div>
+  <div>
+    <input type="radio" id="search-Score" onclick="updateFilter(this.id)" name="search-select">
+    <label for="search-score">Score</label>
+  </div>
+</div>
+
+<div id="to-top" class="to-top" onclick="window.scrollTo(0,0);"></div>
+
+</body>
+</html>
