@@ -96,3 +96,11 @@ function updateFilterString(){
 function sort(){
     catalogue_view.order *= -1;
 }
+
+function showAbout(){
+    document.getElementById("about").style.visibility="visible";
+}
+
+function closeAbout(){
+    document.getElementById("about").style.visibility="hidden";
+}
