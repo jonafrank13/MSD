@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <title>MSD Shopping</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28-csp/vue.min.js"></script>
 </head>
 <body>
 <!-- Header area -->
@@ -48,10 +46,6 @@
     </a>
   </div>
 </div>
-<!-- Script for fetching data -->
-<script type="text/javascript">  
-  callAjax("https://test-prod-api.herokuapp.com/products",updateSampleData);
-</script>
 <!-- Search Dropdown (todo::refactor into a single view component) -->
 <div id="search-dropdown" onmouseover="showSearchDropdown()" onMouseOut="hideSearchDropdown()" class="search-filter dropdown">
   <div>
@@ -120,5 +114,12 @@
     <li>There might be a lot of bug as the total development/testing time was around 6 hours only</li>
   </ul>
 </div>
+<!-- Loading js files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.28-csp/vue.min.js"></script>
+<script src="js/main.js"></script>
+<!-- Script for fetching data -->
+<script type="text/javascript">  
+  callAjax("https://test-prod-api.herokuapp.com/products",updateSampleData);
+</script>
 </body>
 </html>
